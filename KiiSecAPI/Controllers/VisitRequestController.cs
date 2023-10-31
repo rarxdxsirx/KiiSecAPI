@@ -17,9 +17,24 @@ namespace KiiSecAPI.Contollers
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<VisitRequest>))]
-        public IActionResult GetVisits() 
+        public IActionResult GetVisitRequests() 
         {
             var visitRequest = _visitRequestRepository.GetVisitRequests();
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(visitRequest);
+        }
+
+        [HttpGet("{groupID}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<VisitRequest>))]
+        [ProducesResponseType(400)]
+        public IActionResult GetVisitRequestsByGroup(int groupID)
+        {
+
+            var visitRequest = _visitRequestRepository.GetVisitRequestsByGroup(groupID);
 
             if (!ModelState.IsValid)
             {

@@ -6,7 +6,7 @@ namespace KiiSecAPI.Intefaces
     {
         ICollection<Organization> GetOrganization();
         Organization GetOrganization(int id);
-        
+        public bool OrganizationExists(int id);
     }
 }
 

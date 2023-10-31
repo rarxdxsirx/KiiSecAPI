@@ -20,6 +20,11 @@ namespace KiiSecAPI.Data
         {
             return _context.Organizations.Where(p => p.ID == id).FirstOrDefault();
         }
+
+        public bool OrganizationExists(int id) 
+        { 
+            return _context.Organizations.Any(p => p.ID == id);
+        }
     }
 }
 

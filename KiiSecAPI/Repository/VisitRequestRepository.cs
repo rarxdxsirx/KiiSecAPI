@@ -15,6 +15,16 @@ namespace KiiSecAPI.Data
         {
             return _context.VisitRequests.OrderBy(p => p.ID).ToList();
         }
+
+        public ICollection<VisitRequest> GetVisitRequestsByGroup(int groupID) 
+        { 
+            return _context.VisitRequests.OrderBy(p => p.ID).Where(p => p.VisitorsGroupID == groupID).ToList();
+        }
+
+        public bool VisitRequestExists(int id)
+        {
+            return _context.VisitRequests.Any(p => p.ID == id);
+        }
     }
 }
 

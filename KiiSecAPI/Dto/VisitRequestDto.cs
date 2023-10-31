@@ -1,6 +1,6 @@
-﻿namespace KiiSecAPI.Models
+﻿namespace KiiSecAPI.Dto
 {
-    public class VisitRequest
+    public class VisitRequestDto
     {
         public int ID { get; set; }
         public int EmployeeID { get; set; }
@@ -9,10 +9,5 @@
         public DateTime DateEnd { get; set; }
         public string VisitPurpose { get; set; }
         public int VisitStatusID { get; set; }
-
-        //public VisitRequest()
-        //{
-        //    VisitStatus = VisitStatus.Pending;
-        //}
     }
 }
