@@ -4,5 +4,6 @@
     {
         public string? VisitorOrganization { get; set; }
         public string PassportData { get; set; }
+        public ICollection<GroupsOfVisitors> GroupsOfVisitors { get; set;}
     }
 }

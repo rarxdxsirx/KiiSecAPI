@@ -1,5 +1,6 @@
 ﻿using KiiSecAPI.Intefaces;
 using KiiSecAPI.Interfaces;
+using KiiSecAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KiiSecAPI.Controllers
@@ -16,16 +17,16 @@ namespace KiiSecAPI.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<VisitStatus>))]
-        public IActionResult GetVisitsStatus()
+        [ProducesResponseType(200, Type = typeof(IEnumerable<EmployeePermissions>))]
+        public IActionResult GetEmployeePermissions()
         {
-            var permissions = _employeePermissionsRepository.GetEmployeePermissions();
+            var employeePermissions = _employeePermissionsRepository.GetEmployeePermissions();
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            return Ok(permissions);
+            return Ok(employeePermissions);
         }
     }
 }

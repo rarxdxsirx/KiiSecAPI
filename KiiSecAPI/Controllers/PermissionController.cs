@@ -1,5 +1,6 @@
 ﻿using KiiSecAPI.Intefaces;
 using KiiSecAPI.Interfaces;
+using KiiSecAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KiiSecAPI.Controllers
@@ -16,7 +17,7 @@ namespace KiiSecAPI.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<VisitStatus>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Permission>))]
         public IActionResult GetVisitsStatus()
         {
             var permissions = _permissionsRepository.GetPermissions();

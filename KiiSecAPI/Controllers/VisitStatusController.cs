@@ -19,13 +19,13 @@ namespace KiiSecAPI.Contollers
         [ProducesResponseType(200, Type = typeof(IEnumerable<VisitStatus>))]
         public IActionResult GetVisitsStatus() 
         {
-            var visitsstatus = _visitStatusRepository.GetVisitsStatus();
+            var visitsStatus = _visitStatusRepository.GetVisitsStatus();
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            return Ok(visitsstatus);
+            return Ok(visitsStatus);
         }
     }
 }

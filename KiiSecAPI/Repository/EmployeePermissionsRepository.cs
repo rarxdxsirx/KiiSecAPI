@@ -15,7 +15,7 @@ namespace KiiSecAPI.Repository
 
         public ICollection<EmployeePermissions> GetEmployeePermissions()
         {
-            return _context.EmployeePermissions.OrderBy(p => p.EmpNPerID).ToList();
+            return _context.EmployeePermissions.OrderBy(p => p.EmployeeID).ToList();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace KiiSecAPI
+﻿namespace KiiSecAPI.Models
 {
     public class VisitStatus
     {

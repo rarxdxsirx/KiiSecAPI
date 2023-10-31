@@ -1,4 +1,5 @@
 ﻿using KiiSecAPI.Intefaces;
+using KiiSecAPI.Models;
 
 namespace KiiSecAPI.Data
 {

@@ -8,7 +8,7 @@
         public int VisitRequestID { get; set; }
         public DateTime Date { get; set; }
         public string VisitPurpose { get; set; }
-        public VisitStatus Status { get; set; }
+        public int VisitStatusID { get; set; }
 
 
         //public Visit(VisitRequest visitRequest, DateTime date)

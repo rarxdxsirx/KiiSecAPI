@@ -1,4 +1,6 @@
-﻿namespace KiiSecAPI.Intefaces
+﻿using KiiSecAPI.Models;
+
+namespace KiiSecAPI.Intefaces
 {
     public interface IVisitStatusRepository
     {
