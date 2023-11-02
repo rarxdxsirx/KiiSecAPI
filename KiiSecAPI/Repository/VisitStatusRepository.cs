@@ -15,6 +15,11 @@ namespace KiiSecAPI.Data
         {
             return _context.VisitsStatus.OrderBy(p => p.ID).ToList();
         }
+
+        public bool VisitStatusExists(int id)
+        {
+            return _context.VisitsStatus.Any(v => v.ID == id);
+        }
     }
 }
 

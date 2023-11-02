@@ -21,7 +21,6 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeePermissionsRepository, EmployeePermissionsRepository>();
 builder.Services.AddScoped<IVisitRepository, VisitRepository>();
 builder.Services.AddScoped<IVisitorRepository, VisitorRepository>();
-builder.Services.AddScoped<IVisitRequestRepository, VisitRequestRepository>();
 builder.Services.AddScoped<IVisitorGroupRepository, VisitorGroupRepository>();
 builder.Services.AddScoped<IGroupsOfVisitorsRepository, GroupsOfVisitorsRepository>();
 

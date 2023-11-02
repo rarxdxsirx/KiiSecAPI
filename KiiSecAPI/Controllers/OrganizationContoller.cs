@@ -4,6 +4,7 @@ using KiiSecAPI.Models;
 using AutoMapper;
 using KiiSecAPI.Dto;
 using System.Collections.Generic;
+using KiiSecAPI.Data;
 
 namespace KiiSecAPI.Contollers
 {
@@ -49,6 +50,40 @@ namespace KiiSecAPI.Contollers
                 return BadRequest(ModelState);
             }
             return Ok(organization);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateEmployee([FromBody] OrganizationDto organizationCreate)
+        {
+            if (organizationCreate == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var organization = _organizationRepository.GetOrganization()
+                .Where(e => e.Login.Trim().ToUpper() == organizationCreate.Login.TrimEnd().ToUpper())
+                .FirstOrDefault();
+
+            if (organization != null)
+            {
+                ModelState.AddModelError("", "Organization already exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var organizationMap = _mapper.Map<Organization>(organizationCreate);
+
+            if (!_organizationRepository.CreateOrganization(organizationMap))
+            {
+                ModelState.AddModelError("", "Something weng wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Succesfully created");
         }
     }
 }

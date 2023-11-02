@@ -1,5 +1,6 @@
 ﻿using KiiSecAPI.Intefaces;
 using KiiSecAPI.Models;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace KiiSecAPI.Data
 {
@@ -11,9 +12,52 @@ namespace KiiSecAPI.Data
             _context = context;
         }
 
-        public ICollection<Employee> GetEmployee()
+        public bool CreateEmployee(int permissionId, Employee employee)
+        {
+            var permissionEntity = _context.Permissions.FirstOrDefault(p => p.ID == permissionId);
+
+            var employeePermission = new EmployeePermissions()
+            {
+                Employee = employee,
+                Permission = permissionEntity
+            };
+
+            _context.Add(employeePermission);
+            _context.Add(employee);
+
+            return Save();
+        }
+
+        public bool DeleteEmployee(Employee employee)
+        {
+            _context.Remove(employee);
+            return Save();
+        }
+
+        public bool EmployeeExists(int ID)
+        {
+            return _context.Employees.Any(e => e.ID == ID);
+        }
+
+        public ICollection<Employee> GetEmployees()
         {
             return _context.Employees.OrderBy(p => p.ID).ToList();
+        }
+        public Employee GetEmployeeById(int ID) 
+        {
+            return _context.Employees.FirstOrDefault(p => p.ID == ID);
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
+        public bool UpdateEmployee(int permissionId, Employee employee)
+        {
+            _context.Update(employee);
+            return Save();
         }
     }
 }

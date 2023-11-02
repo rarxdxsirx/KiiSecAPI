@@ -14,7 +14,6 @@ namespace KiiSecAPI.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Visit> Visits { get; set; }
-        public DbSet<VisitRequest> VisitRequests { get; set; }
         public DbSet<Visitor> Visitors { get; set; }
         public DbSet<VisitorsGroup> VisitorsGroups { get; set; }
         public DbSet<VisitStatus> VisitsStatus { get; set; }

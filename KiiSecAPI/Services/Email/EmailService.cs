@@ -18,7 +18,6 @@ namespace KiiSecAPI.Services.Email
                 Text = message
             };
 
-            //TODO configurate email sender
             using (var client = new SmtpClient())
             {
                 await client.ConnectAsync("smtp.yandex.ru", 25, false);

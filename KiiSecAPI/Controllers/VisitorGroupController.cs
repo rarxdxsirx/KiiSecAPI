@@ -1,6 +1,8 @@
 ﻿using KiiSecAPI.Intefaces;
 using Microsoft.AspNetCore.Mvc;
 using KiiSecAPI.Models;
+using AutoMapper;
+using KiiSecAPI.Dto;
 
 namespace KiiSecAPI.Contollers
 {
@@ -9,17 +11,19 @@ namespace KiiSecAPI.Contollers
     public class VisitorGroupController : Controller
     {
         private readonly IVisitorGroupRepository _visitorGroupRepository;
+        private readonly IMapper _mapper;
 
-        public VisitorGroupController(IVisitorGroupRepository visitorGroupRepository)
+        public VisitorGroupController(IVisitorGroupRepository visitorGroupRepository, IMapper mapper)
         {
             _visitorGroupRepository = visitorGroupRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<VisitorsGroup>))]
         public IActionResult GetVisitsStatus() 
         {
-            var visitorsGroup = _visitorGroupRepository.GetVisitorsGroups();
+            var visitorsGroup = _mapper.Map<List<VisitorsGroupDto>>(_visitorGroupRepository.GetVisitorsGroups());
 
             if (!ModelState.IsValid)
             {
