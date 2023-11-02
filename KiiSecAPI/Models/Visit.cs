@@ -1,5 +1,6 @@
 ﻿namespace KiiSecAPI.Models
 {
+    // Not neccesary?
     public class Visit
     {
         public int ID { get; set; }
