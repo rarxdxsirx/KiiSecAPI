@@ -23,7 +23,7 @@ namespace KiiSecAPI.Contollers
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Organization>))]
-        public IActionResult GetOrganization() 
+        public IActionResult GetOrganizationExist() 
         {
             var organization = _mapper.Map<List<OrganizationDto>>(_organizationRepository.GetOrganization());
 
@@ -55,7 +55,7 @@ namespace KiiSecAPI.Contollers
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateEmployee([FromBody] OrganizationDto organizationCreate)
+        public IActionResult CreateOrganization([FromBody] OrganizationDto organizationCreate)
         {
             if (organizationCreate == null)
             {

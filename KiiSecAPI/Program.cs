@@ -4,6 +4,10 @@ using KiiSecAPI.Intefaces;
 using KiiSecAPI.Interfaces;
 using KiiSecAPI.Repository;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
+using System.Web.Mvc;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +30,13 @@ builder.Services.AddScoped<IGroupsOfVisitorsRepository, GroupsOfVisitorsReposito
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.CustomOperationIds(apiDescription =>
+    {
+        return apiDescription.TryGetMethodInfo(out MethodInfo methodInfo) ? methodInfo.Name : null;
+    });
+});
 builder.Services.AddDbContext<DataContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
@@ -51,8 +61,14 @@ void SeedData(IHost app)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "KiiSecAPI");
+        c.DisplayOperationId();
+    });
 }
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 

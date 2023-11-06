@@ -49,6 +49,20 @@ namespace KiiSecAPI.Contollers
             return Ok(employee);
         }
 
+        [HttpGet("Organization/{organizationId}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Employee>))]
+        [ProducesResponseType(400)]
+        public IActionResult GetEmployeeByOrganizationID(int organizationId)
+        {
+            var employee = _mapper.Map<List<EmployeeDto>>(_employeeRepository.GetEmployeesByOrganization(organizationId));
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(employee);
+        }
+
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -74,7 +88,7 @@ namespace KiiSecAPI.Contollers
 
             var employeeMap = _mapper.Map<Employee>(employeeCreate);
 
-            if (!_employeeRepository.CreateEmployee(permissionId,employeeMap))
+            if (!_employeeRepository.CreateEmployee(employeeMap))
             {
                 ModelState.AddModelError("", "Something weng wrong while saving");
                 return StatusCode(500,ModelState);
@@ -84,11 +98,12 @@ namespace KiiSecAPI.Contollers
         }
 
 
-        [HttpPut("{employeeId}")]
+        [HttpPut]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult UpdateEmployee(int employeeId, [FromQuery] int permissionId, [FromBody] EmployeeDto updatedEmployee)
+        public IActionResult UpdateEmployee([FromBody] EmployeeDto updatedEmployee)
         {
+            int employeeId = updatedEmployee.ID;
             if (updatedEmployee == null)
             {
                 return BadRequest(ModelState);
@@ -110,7 +125,7 @@ namespace KiiSecAPI.Contollers
 
             var employeeMap = _mapper.Map<Employee>(updatedEmployee);
 
-            if (!_employeeRepository.UpdateEmployee(permissionId, employeeMap))
+            if (!_employeeRepository.UpdateEmployee(employeeMap))
             {
                 ModelState.AddModelError("", "Something weng wrong while saving");
                 return StatusCode(500, ModelState);
@@ -147,5 +162,7 @@ namespace KiiSecAPI.Contollers
 
             return NoContent();
         }
+
+        
     }
 }

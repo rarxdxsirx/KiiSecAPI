@@ -1,4 +1,5 @@
 ﻿using KiiSecAPI.Intefaces;
+using KiiSecAPI.Interfaces;
 using KiiSecAPI.Models;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
@@ -10,22 +11,6 @@ namespace KiiSecAPI.Data
         public EmployeeRepository(DataContext context)
         {
             _context = context;
-        }
-
-        public bool CreateEmployee(int permissionId, Employee employee)
-        {
-            var permissionEntity = _context.Permissions.FirstOrDefault(p => p.ID == permissionId);
-
-            var employeePermission = new EmployeePermissions()
-            {
-                Employee = employee,
-                Permission = permissionEntity
-            };
-
-            _context.Add(employeePermission);
-            _context.Add(employee);
-
-            return Save();
         }
 
         public bool DeleteEmployee(Employee employee)
@@ -54,9 +39,47 @@ namespace KiiSecAPI.Data
             return saved > 0 ? true : false;
         }
 
-        public bool UpdateEmployee(int permissionId, Employee employee)
+        public ICollection<Employee> GetEmployeesByOrganization(int organizationId)
+        {
+            return _context.Employees.Where(e => e.OrganizationId == organizationId).ToList();
+        }
+
+        public bool CreateEmployee(Employee employee)
+        {          
+            _context.Add(employee);
+
+            return Save();
+        }
+
+        public bool UpdateEmployee(Employee employee)
         {
             _context.Update(employee);
+            return Save();
+        }
+
+        public bool AddEmployeePermission(Employee employee, int permissionId) // 1
+        {
+            var permissionEntity = _context.Permissions.FirstOrDefault(p => p.ID == permissionId);
+
+            var employeePermission = new EmployeePermissions()
+            {
+                Employee = employee,
+                Permission = permissionEntity
+            };
+
+            _context.Add(employeePermission);
+            return Save();
+        }
+
+        public bool RemoveEmployeePermission(Employee employee, int permissionId) // 2
+        {
+            var permissionEntity = _context.Permissions.FirstOrDefault(p => p.ID == permissionId);
+            var employeePermission = new EmployeePermissions()
+            {
+                Employee = employee,
+                Permission = permissionEntity
+            };
+            _context.Remove(employeePermission);
             return Save();
         }
     }

@@ -43,12 +43,12 @@ namespace KiiSecAPI.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetPermissonsOfEmployee(int employeeId)
         {
-            var reviews = _mapper.Map<List<EmployeePermissionsDto>>(_employeePermissionsRepository.GetPermissonsOfEmployee(employeeId));
+            var permissionsOfEmployee = _mapper.Map<List<EmployeePermissionsDto>>(_employeePermissionsRepository.GetPermissonsOfEmployee(employeeId));
 
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            return Ok(reviews);
+            return Ok(permissionsOfEmployee);
         }
 
         [HttpPost]
@@ -85,6 +85,37 @@ namespace KiiSecAPI.Controllers
             }
 
             return Ok("Successfully created");
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult DeleteEmployee([FromQuery] int employeeId, [FromQuery] int permissionId)
+        {
+            if (!_employeeRepository.EmployeeExists(employeeId))
+            {
+                return NotFound();
+            }
+
+            var employeePermission = _employeePermissionsRepository.GetEmployeePermissions()
+                .Where(e => e.EmployeeID == employeeId)
+                .Where(e => e.PermissionID == permissionId)
+                .FirstOrDefault();
+
+            if (employeePermission == null)
+            {
+                ModelState.AddModelError("", "Employee permission doesnt exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _employeePermissionsRepository.DeleteEmployeePermission(employeePermission);
+
+            return NoContent();
         }
     }
 }
