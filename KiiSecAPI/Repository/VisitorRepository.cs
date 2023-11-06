@@ -21,9 +21,9 @@ namespace KiiSecAPI.Data
             return _context.Visitors.FirstOrDefault(p => p.ID == id);
         }
 
-        public bool CreateVisitor(int groupId, Visitor visitor)
+        public bool CreateVisitor(Visitor visitor)
         {
-            var groupEntity = _context.VisitorsGroups.FirstOrDefault(g => g.ID == groupId);
+            var groupEntity = _context.VisitorsGroups.
 
             var groupsOfVisitors = new GroupsOfVisitors()
             {

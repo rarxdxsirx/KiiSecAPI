@@ -6,8 +6,8 @@ namespace KiiSecAPI.Intefaces
     {
         ICollection<Visitor> GetVisitors();
         Visitor GetVisitorByID(int id);
-        bool CreateVisitor(int groupId, Visitor visitor);
-        bool UpdateVisitor(int groupId, Visitor visitor);
+        bool CreateVisitor(Visitor visitor);
+        bool UpdateVisitor(Visitor visitor);
         bool Save();
     }
 }

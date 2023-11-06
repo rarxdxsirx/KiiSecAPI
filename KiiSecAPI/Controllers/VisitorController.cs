@@ -49,7 +49,7 @@ namespace KiiSecAPI.Contollers
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateVisitor([FromQuery] int groupId,[FromBody] VisitorDto visitorCreate)
+        public IActionResult CreateVisitor([FromBody] VisitorDto visitorCreate)
         {
             if (visitorCreate == null) { return BadRequest(ModelState); }
 
@@ -68,7 +68,7 @@ namespace KiiSecAPI.Contollers
 
             var visitorMap = _mapper.Map<Visitor>(visitorCreate);
 
-            if (!_visitorRepository.CreateVisitor(groupId,visitorMap))
+            if (!_visitorRepository.CreateVisitor(visitorMap))
             {
                 ModelState.AddModelError("", "Something weng wrong while saving");
                 return StatusCode(500, ModelState);

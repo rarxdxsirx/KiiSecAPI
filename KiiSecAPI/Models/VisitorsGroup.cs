@@ -4,6 +4,6 @@
     {
         public int ID { get; set; }
         public int OrganizationID { get; set; }
-        public ICollection<GroupsOfVisitors> GroupsOfVisitors { get; set; }
+        public ICollection<GroupsOfVisitors>? GroupsOfVisitors { get; set; }
     }
 }
