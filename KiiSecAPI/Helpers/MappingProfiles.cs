@@ -15,11 +15,13 @@ namespace KiiSecAPI.Helper
             CreateMap<Employee, EmployeeDto>();
             CreateMap<EmployeeDto, Employee>();
             CreateMap<EmployeePermissions, EmployeePermissionsDto>();
-            CreateMap<GroupsOfVisitors, GroupsOfVisitorsDto>();
+            CreateMap<EmployeePermissionsDto, EmployeePermissions>();
+            CreateMap<VisitOfVisitor, VisitOfVisitorDto>();
+            CreateMap<VisitOfVisitorDto, VisitOfVisitor>();
             CreateMap<Permission, PermissionDto>();
+            CreateMap<PermissionDto, Permission>();
             CreateMap<Visitor, VisitorDto>();
             CreateMap<VisitorDto, Visitor>();
-            CreateMap<VisitorsGroup,VisitorsGroupDto>();
         }
     }
 }

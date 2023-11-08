@@ -5,7 +5,6 @@ namespace KiiSecAPI.Intefaces
     public interface IVisitRepository
     {
         ICollection<Visit> GetVisits();
-        ICollection<Visit> GetVisitsByGroup(int groupID);
         Visit GetVisitById(int id);
         bool CreateVisit(Visit visit);
         bool UpdateVisit(Visit visit);

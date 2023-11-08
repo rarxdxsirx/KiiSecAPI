@@ -15,11 +15,10 @@ namespace KiiSecAPI.Data
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Visit> Visits { get; set; }
         public DbSet<Visitor> Visitors { get; set; }
-        public DbSet<VisitorsGroup> VisitorsGroups { get; set; }
         public DbSet<VisitStatus> VisitsStatus { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<EmployeePermissions> EmployeePermissions { get; set; }
-        public DbSet<GroupsOfVisitors> GroupsOfVisitors { get; set; }
+        public DbSet<VisitOfVisitor> VisitsOfVisitors { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,16 +35,16 @@ namespace KiiSecAPI.Data
                 .WithMany(ep => ep.EmployeePermissions)
                 .HasForeignKey(e => e.EmployeeID);
 
-            modelBuilder.Entity<GroupsOfVisitors>()
-                .HasKey(gv => new { gv.GroupId, gv.VisitorId });
-            modelBuilder.Entity<GroupsOfVisitors>()
-                .HasOne(g => g.VisitorsGroup)
-                .WithMany(gv => gv.GroupsOfVisitors)
-                .HasForeignKey(g => g.GroupId);
-            modelBuilder.Entity<GroupsOfVisitors>()
-                .HasOne(v => v.Visitor)
-                .WithMany(gv => gv.GroupsOfVisitors)
-                .HasForeignKey(v => v.VisitorId);
+            modelBuilder.Entity<VisitOfVisitor>()
+                .HasKey(gv => new { gv.VisitId, gv.VisitorId });
+            modelBuilder.Entity<VisitOfVisitor>()
+                .HasOne(g => g.Visitor)
+                .WithMany(gv => gv.VisitsOfVisitors)
+                .HasForeignKey(g => g.VisitorId);
+            modelBuilder.Entity<VisitOfVisitor>()
+                .HasOne(v => v.Visit)
+                .WithMany(gv => gv.VisitsOfVisitors)
+                .HasForeignKey(v => v.VisitId);
 
         }
     }

@@ -1,8 +1,8 @@
 ﻿namespace KiiSecAPI.Dto
 {
-    public class GroupsOfVisitorsDto
+    public class VisitOfVisitorDto
     {
         public int VisitorId { get; set; }
-        public int GroupId { get; set; }
+        public int VisitId { get; set; }
     }
 }

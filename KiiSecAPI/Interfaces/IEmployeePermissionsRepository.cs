@@ -11,6 +11,5 @@ namespace KiiSecAPI.Interfaces
         bool DeleteEmployeePermission(EmployeePermissions employeePermission); //TODO Add DeleteEmployeePermission to Controller
         bool DeleteEmployeePermissions(List<EmployeePermissions> employeePermissions);
         bool Save();
-
     }
 }

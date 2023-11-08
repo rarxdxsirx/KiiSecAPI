@@ -1,10 +1,10 @@
 ﻿namespace KiiSecAPI.Models
 {
-    public class GroupsOfVisitors
+    public class VisitOfVisitor
     {
         public int VisitorId { get; set; }
-        public int GroupId { get; set; }
-        public VisitorsGroup VisitorsGroup { get; set; }
+        public int VisitId { get; set; }
+        public Visit Visit { get; set; }
         public Visitor Visitor { get; set; }
     }
 }

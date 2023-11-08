@@ -3,7 +3,6 @@
     public class VisitDto
     {
         public int ID { get; set; }
-        public int VisitorsGroupID { get; set; }
         public int OrganizationID { get; set; }
         public int EmployeeID { get; set; }
         public DateTime DateStart { get; set; }

@@ -57,31 +57,6 @@ namespace KiiSecAPI.Data
             return Save();
         }
 
-        public bool AddEmployeePermission(Employee employee, int permissionId) // 1
-        {
-            var permissionEntity = _context.Permissions.FirstOrDefault(p => p.ID == permissionId);
-
-            var employeePermission = new EmployeePermissions()
-            {
-                Employee = employee,
-                Permission = permissionEntity
-            };
-
-            _context.Add(employeePermission);
-            return Save();
-        }
-
-        public bool RemoveEmployeePermission(Employee employee, int permissionId) // 2
-        {
-            var permissionEntity = _context.Permissions.FirstOrDefault(p => p.ID == permissionId);
-            var employeePermission = new EmployeePermissions()
-            {
-                Employee = employee,
-                Permission = permissionEntity
-            };
-            _context.Remove(employeePermission);
-            return Save();
-        }
     }
 }
 

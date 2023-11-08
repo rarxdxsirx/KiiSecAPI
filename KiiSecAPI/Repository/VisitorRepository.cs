@@ -23,30 +23,26 @@ namespace KiiSecAPI.Data
 
         public bool CreateVisitor(Visitor visitor)
         {
-            var groupEntity = _context.VisitorsGroups.
-
-            var groupsOfVisitors = new GroupsOfVisitors()
-            {
-                VisitorsGroup = groupEntity,
-                Visitor = visitor
-            };
-
-            _context.Add(groupsOfVisitors);
             _context.Add(visitor);
 
             return Save();
-        }
-
-        public bool UpdateVisitor(int groupId, Visitor visitor)
-        {
-            //TODO Configure Update Visitor
-            throw new NotImplementedException();
         }
 
         public bool Save()
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
+        }
+
+        public bool UpdateVisitor(Visitor visitor)
+        {
+            _context.Update(visitor);
+            return Save();
+        }
+
+        public bool VisitorExists(int id)
+        {
+            return _context.Visitors.Any(a => a.ID == id);
         }
     }
 }

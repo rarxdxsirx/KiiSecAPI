@@ -12,12 +12,16 @@ namespace KiiSecAPI.Contollers
     [ApiController]
     public class VisitController : Controller
     {
+        private readonly IVisitorRepository _visitorRepository;
         private readonly IVisitRepository _visitRepository;
+        private readonly IVisitOfVisitorRepository _visitOfVisitorRepository;
         private readonly IMapper _mapper;
 
-        public VisitController(IVisitRepository visitRepository, IMapper mapper)
+        public VisitController(IVisitRepository visitRepository, IMapper mapper, IVisitOfVisitorRepository visitOfVisitorRepository, IVisitorRepository visitorRepository)
         {
             _visitRepository = visitRepository;
+            _visitorRepository = visitorRepository;
+            _visitOfVisitorRepository = visitOfVisitorRepository;
             _mapper = mapper;
         }
 
@@ -26,21 +30,6 @@ namespace KiiSecAPI.Contollers
         public IActionResult GetVisits() 
         {
             var visit = _mapper.Map<List<VisitDto>>(_visitRepository.GetVisits());
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            return Ok(visit);
-        }
-
-        [HttpGet("visitorGroups/{groupID}")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Visit>))]
-        [ProducesResponseType(400)]
-        public IActionResult GetVisitsByGroup(int groupID)
-        {
-
-            var visit = _mapper.Map<List<VisitDto>>(_visitRepository.GetVisitsByGroup(groupID));
 
             if (!ModelState.IsValid)
             {
@@ -189,6 +178,17 @@ namespace KiiSecAPI.Contollers
                 return BadRequest(ModelState);
 
             var visitToDelete = _visitRepository.GetVisitById(visitId);
+
+            //VisitOfVisitor visitOfVisitor = new VisitOfVisitor()
+            //{
+            //    Visit = visitToDelete,
+            //    VisitId = visitId,
+            //    Visitor = _visitorRepository.
+
+            //};
+
+            //var visitOfVisitorToDelete = _visitOfVisitorRepository.DeleteVisitOfVisitor(visitOfVisitor);
+            
 
             if (!_visitRepository.DeleteVisit(visitToDelete))
             {

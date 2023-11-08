@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using KiiSecAPI.Models;
 using AutoMapper;
 using KiiSecAPI.Dto;
+using KiiSecAPI.Data;
 
 namespace KiiSecAPI.Contollers
 {
@@ -75,6 +76,42 @@ namespace KiiSecAPI.Contollers
             }
 
             return Ok("Succesfully created");
+        }
+
+        [HttpPut]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult UpdateEmployee([FromBody] VisitorDto updatedVisitor)
+        {
+            int visitorId = updatedVisitor.ID;
+            if (updatedVisitor == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (visitorId != updatedVisitor.ID)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!_visitorRepository.VisitorExists(visitorId))
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+
+            var visitorMap = _mapper.Map<Visitor>(updatedVisitor);
+
+            if (!_visitorRepository.UpdateVisitor(visitorMap))
+            {
+                ModelState.AddModelError("", "Something weng wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
         }
     }
 }

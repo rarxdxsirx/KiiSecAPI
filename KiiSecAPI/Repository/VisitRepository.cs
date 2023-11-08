@@ -34,11 +34,6 @@ namespace KiiSecAPI.Data
             return _context.Visits.OrderBy(p => p.ID).ToList();
         }
 
-        public ICollection<Visit> GetVisitsByGroup(int groupID)
-        {
-            return _context.Visits.OrderBy(p => p.ID).Where(p => p.VisitorsGroupID == groupID).ToList();
-        }
-
         public bool Save()
         {
             var saved = _context.SaveChanges();
